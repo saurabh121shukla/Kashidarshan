@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>KashiDarshann — Sacred Journeys to Varanasi, Prayagraj & Ayodhya</title>
+
+<!-- ═══════════════════════════════════════════════════
+     🔥 FIREBASE CONFIG — REPLACE WITH YOUR VALUES
+     Go to: Firebase Console → Project Settings → Your Apps → SDK Setup
+     ═══════════════════════════════════════════════════ -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  // 🔑 PASTE YOUR FIREBASE CONFIG HERE
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Make db globally accessible
+  window._firebaseDB = db;
+  window._firestoreAdd = addDoc;
+  window._firestoreCollection = collection;
+  window._firestoreTimestamp = serverTimestamp;
+  window._firebaseReady = true;
+  document.dispatchEvent(new Event('firebaseReady'));
+</script>
+
+<!-- ═══════════════════════════════════════════════════
+     💳 RAZORPAY — REPLACE WITH YOUR KEY
+     Go to: Razorpay Dashboard → Settings → API Keys
+     ═══════════════════════════════════════════════════ -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Yatra+One&family=Tiro+Devanagari+Hindi:ital@0;1&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet"/>
+
+<style>
+:root {
+  --saffron:    #FF6B00;
+  --saffron-lt: #FF9A3C;
+  --saffron-dk: #C94E00;
+  --gold:       #D4A017;
+  --gold-lt:    #F5C842;
+  --maroon:     #800020;
+  --maroon-lt:  #A52338;
+  --cream:      #FDF6E3;
+  --cream-dk:   #F5E9C8;
+  --brown:      #4A2C0A;
+  --brown-lt:   #7B4F1E;
+  --text:       #2C1A0A;
+  --text-muted: #6B4C2A;
+  --white:      #FFFFFF;
+  --shadow:     0 8px 32px rgba(74,44,10,0.18);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Crimson Pro', Georgia, serif;
+  background: var(--cream);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream-dk); }
+::-webkit-scrollbar-thumb { background: var(--saffron); border-radius: 3px; }
+
+/* ── PATTERN BG ── */
+.pattern-bg {
+  background-color: var(--cream);
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(255,107,0,0.07) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(212,160,23,0.07) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FF6B00' fill-opacity='0.04'%3E%3Cpath d='M30 0L60 30L30 60L0 30z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ══════════════════════════════
+   NAVBAR
+══════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(253,246,227,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 2px solid var(--gold);
+  padding: 0 5%;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+  box-shadow: 0 2px 20px rgba(74,44,10,0.12);
+}
+
+.nav-logo {
+  font-family: 'Yatra One', cursive;
+  font-size: 1.6rem;
+  color: var(--saffron-dk);
+  text-decoration: none;
+  letter-spacing: 1px;
+  display: flex; align-items: center; gap: 8px;
+}
+.nav-logo span { color: var(--gold); }
+
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a {
+  font-size: 0.95rem; font-weight: 600;
+  color: var(--brown); text-decoration: none;
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+  transition: all 0.25s;
+  letter-spacing: 0.3px;
+}
+.nav-links a:hover { color: var(--saffron); border-bottom-color: var(--saffron); }
+
+.nav-cta {
+  background: linear-gradient(135deg, var(--saffron), var(--saffron-dk));
+  color: var(--white) !important;
+  padding: 8px 20px !important;
+  border-radius: 4px;
+  border-bottom: none !important;
+  box-shadow: 0 2px 12px rgba(255,107,0,0.35);
+  transition: transform 0.2s, box-shadow 0.2s !important;
+}
+.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 18px rgba(255,107,0,0.45) !important; }
+
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.hamburger span { width: 26px; height: 2px; background: var(--brown); border-radius: 2px; transition: 0.3s; }
+
+/* ══════════════════════════════
+   HERO
+══════════════════════════════ */
+#home {
+  min-height: 100vh;
+  background:
+    linear-gradient(160deg, rgba(42,15,3,0.82) 0%, rgba(128,0,32,0.65) 50%, rgba(255,107,0,0.45) 100%),
+    url('https://images.unsplash.com/photo-1561361058-c24e021e5f78?w=1600&q=80') center/cover no-repeat;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+  padding: 80px 5% 60px;
+  position: relative; overflow: hidden;
+}
+
+.hero-diya {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 120px;
+  background: linear-gradient(to top, var(--cream), transparent);
+  pointer-events: none;
+}
+
+.hero-content { max-width: 760px; animation: heroFadeUp 1.1s ease both; }
+
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-om {
+  font-size: 3.5rem; color: var(--gold-lt);
+  filter: drop-shadow(0 0 20px rgba(212,160,23,0.7));
+  margin-bottom: 12px;
+  animation: pulse 3s ease infinite;
+}
+@keyframes pulse {
+  0%,100% { filter: drop-shadow(0 0 20px rgba(212,160,23,0.7)); }
+  50%      { filter: drop-shadow(0 0 40px rgba(212,160,23,1)); }
+}
+
+.hero-tagline {
+  font-family: 'Tiro Devanagari Hindi', serif;
+  font-size: 1rem; color: var(--gold-lt);
+  letter-spacing: 3px; text-transform: uppercase;
+  margin-bottom: 16px; opacity: 0.9;
+}
+
+.hero-title {
+  font-family: 'Yatra One', cursive;
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  color: var(--white);
+  line-height: 1.1;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  margin-bottom: 8px;
+}
+.hero-title span { color: var(--gold-lt); }
+
+.hero-subtitle {
+  font-size: 1.2rem; color: rgba(255,255,255,0.85);
+  font-style: italic; margin-bottom: 32px;
+  font-weight: 300; letter-spacing: 0.5px;
+}
+
+.hero-cities {
+  display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+.city-badge {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(212,160,23,0.5);
+  backdrop-filter: blur(8px);
+  color: var(--gold-lt);
+  padding: 8px 20px; border-radius: 30px;
+  font-size: 0.9rem; font-weight: 600; letter-spacing: 1px;
+  transition: all 0.3s;
+}
+.city-badge:hover { background: rgba(212,160,23,0.2); border-color: var(--gold-lt); transform: translateY(-2px); }
+
+.hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--saffron), var(--saffron-dk));
+  color: var(--white); padding: 14px 36px;
+  border-radius: 4px; text-decoration: none; font-size: 1rem;
+  font-weight: 600; letter-spacing: 0.5px;
+  box-shadow: 0 4px 20px rgba(255,107,0,0.4);
+  transition: all 0.3s; display: inline-block; border: none; cursor: pointer;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(255,107,0,0.5); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--white); padding: 13px 36px;
+  border: 2px solid rgba(255,255,255,0.6);
+  border-radius: 4px; text-decoration: none; font-size: 1rem;
+  font-weight: 600; letter-spacing: 0.5px;
+  transition: all 0.3s; display: inline-block;
+}
+.btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: var(--white); }
+
+/* ══════════════════════════════
+   SECTION COMMONS
+══════════════════════════════ */
+section { padding: 80px 5%; }
+
+.section-header { text-align: center; margin-bottom: 56px; }
+
+.section-label {
+  font-size: 0.8rem; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--saffron);
+  display: block; margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: 'Yatra One', cursive;
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  color: var(--brown);
+  line-height: 1.2;
+}
+
+.section-title span { color: var(--saffron); }
+
+.section-divider {
+  width: 60px; height: 3px;
+  background: linear-gradient(90deg, var(--saffron), var(--gold));
+  margin: 16px auto 0;
+  border-radius: 2px;
+}
+
+.section-desc {
+  font-size: 1.1rem; color: var(--text-muted);
+  max-width: 620px; margin: 16px auto 0;
+  line-height: 1.7; font-style: italic;
+}
+
+/* ══════════════════════════════
+   CITIES STRIP
+══════════════════════════════ */
+#cities { background: var(--brown); padding: 48px 5%; }
+
+.cities-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2px; max-width: 1100px; margin: 0 auto;
+}
+
+.city-card {
+  position: relative; overflow: hidden;
+  height: 260px; cursor: pointer;
+}
+.city-card img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.5s ease;
+  filter: brightness(0.65);
+}
+.city-card:hover img { transform: scale(1.06); filter: brightness(0.5); }
+
+.city-card-overlay {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(74,44,10,0.7) 0%, transparent 60%);
+}
+.city-card-icon { font-size: 2.2rem; margin-bottom: 8px; }
+.city-card-name {
+  font-family: 'Yatra One', cursive;
+  font-size: 1.6rem; color: var(--white);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+.city-card-desc { font-size: 0.85rem; color: rgba(255,255,255,0.8); margin-top: 6px; text-align: center; }
+
+/* ══════════════════════════════
+   PACKAGES
+══════════════════════════════ */
+#packages { background: var(--cream); }
+
+.packages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px; max-width: 1140px; margin: 0 auto;
+}
+
+.pkg-card {
+  background: var(--white);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.35s, box-shadow 0.35s;
+  border: 1px solid rgba(212,160,23,0.2);
+  position: relative;
+}
+.pkg-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(74,44,10,0.22); }
+
+.pkg-badge {
+  position: absolute; top: 16px; right: 16px;
+  background: var(--saffron); color: var(--white);
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 1px;
+  padding: 4px 12px; border-radius: 30px; text-transform: uppercase;
+}
+
+.pkg-img { width: 100%; height: 190px; object-fit: cover; }
+
+.pkg-body { padding: 22px 24px; }
+
+.pkg-city {
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--saffron);
+  margin-bottom: 6px;
+}
+
+.pkg-title {
+  font-family: 'Yatra One', cursive;
+  font-size: 1.35rem; color: var(--brown);
+  margin-bottom: 8px;
+}
+
+.pkg-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 16px; }
+
+.pkg-features { list-style: none; margin-bottom: 20px; }
+.pkg-features li {
+  font-size: 0.88rem; color: var(--text-muted);
+  padding: 4px 0; display: flex; align-items: center; gap: 8px;
+}
+.pkg-features li::before { content: "✦"; color: var(--gold); font-size: 0.7rem; }
+
+.pkg-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid var(--cream-dk);
+}
+
+.pkg-price { font-family: 'Yatra One', cursive; }
+.pkg-price-val { font-size: 1.7rem; color: var(--saffron-dk); }
+.pkg-price-label { font-size: 0.78rem; color: var(--text-muted); }
+
+.btn-book {
+  background: linear-gradient(135deg, var(--saffron), var(--saffron-dk));
+  color: var(--white); padding: 10px 22px;
+  border-radius: 4px; border: none; cursor: pointer;
+  font-size: 0.9rem; font-weight: 700;
+  letter-spacing: 0.3px;
+  transition: all 0.3s;
+  font-family: 'Crimson Pro', serif;
+}
+.btn-book:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(255,107,0,0.4); }
+
+/* ══════════════════════════════
+   GALLERY
+══════════════════════════════ */
+#gallery { background: var(--cream-dk); }
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  gap: 8px;
+  max-width: 1140px; margin: 0 auto;
+}
+
+.gallery-item {
+  overflow: hidden; border-radius: 4px; cursor: pointer;
+  position: relative;
+}
+.gallery-item.tall { grid-row: span 2; }
+.gallery-item.wide { grid-column: span 2; }
+
+.gallery-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  min-height: 180px;
+  transition: transform 0.4s ease, filter 0.4s;
+}
+.gallery-item:hover img { transform: scale(1.05); filter: brightness(0.8) saturate(1.2); }
+
+.gallery-item-overlay {
+  position: absolute; inset: 0;
+  background: rgba(74,44,10,0);
+  display: flex; align-items: center; justify-content: center;
+  transition: 0.3s;
+}
+.gallery-item:hover .gallery-item-overlay { background: rgba(74,44,10,0.3); }
+.gallery-item-overlay span { color: white; font-size: 2rem; opacity: 0; transition: 0.3s; }
+.gallery-item:hover .gallery-item-overlay span { opacity: 1; }
+
+/* ══════════════════════════════
+   TESTIMONIALS
+══════════════════════════════ */
+#testimonials {
+  background: linear-gradient(135deg, var(--brown) 0%, var(--maroon) 100%);
+  position: relative; overflow: hidden;
+}
+#testimonials::before {
+  content: '।। श्री ।।';
+  position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
+  font-family: 'Yatra One', cursive;
+  font-size: 1.1rem; color: rgba(212,160,23,0.3);
+  letter-spacing: 6px;
+}
+
+.testi-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px; max-width: 1100px; margin: 0 auto;
+}
+
+.testi-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(212,160,23,0.25);
+  border-radius: 8px; padding: 28px 24px;
+  backdrop-filter: blur(8px);
+  transition: transform 0.3s, background 0.3s;
+}
+.testi-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.11); }
+
+.testi-quote { font-size: 2.5rem; color: var(--gold); line-height: 1; margin-bottom: 12px; }
+
+.testi-text {
+  font-size: 1rem; color: rgba(255,255,255,0.85);
+  line-height: 1.75; font-style: italic; margin-bottom: 20px;
+}
+
+.testi-author { display: flex; align-items: center; gap: 12px; }
+
+.testi-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--saffron), var(--gold));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; color: var(--white); font-size: 1.1rem;
+}
+
+.testi-name { font-weight: 600; color: var(--gold-lt); font-size: 0.95rem; }
+.testi-loc { font-size: 0.8rem; color: rgba(255,255,255,0.55); }
+
+.testi-stars { color: var(--gold-lt); font-size: 0.85rem; margin-bottom: 6px; }
+
+/* ══════════════════════════════
+   ENQUIRY FORM
+══════════════════════════════ */
+#enquiry { background: var(--cream); }
+
+.enquiry-wrapper {
+  max-width: 860px; margin: 0 auto;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 12px 48px rgba(74,44,10,0.15);
+  overflow: hidden;
+  border: 1px solid rgba(212,160,23,0.2);
+}
+
+.enquiry-header {
+  background: linear-gradient(135deg, var(--saffron-dk), var(--maroon));
+  padding: 32px 40px;
+  color: var(--white);
+}
+.enquiry-header h3 {
+  font-family: 'Yatra One', cursive;
+  font-size: 1.8rem; margin-bottom: 6px;
+}
+.enquiry-header p { font-size: 0.95rem; opacity: 0.85; font-style: italic; }
+
+.enquiry-form { padding: 40px; }
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form-full { grid-column: 1 / -1; }
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+
+.form-group label {
+  font-size: 0.82rem; font-weight: 700; letter-spacing: 0.5px;
+  color: var(--brown); text-transform: uppercase;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 11px 14px;
+  border: 1.5px solid var(--cream-dk);
+  border-radius: 5px;
+  font-family: 'Crimson Pro', serif;
+  font-size: 1rem; color: var(--text);
+  background: var(--cream);
+  transition: border-color 0.25s, box-shadow 0.25s;
+  outline: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--saffron);
+  box-shadow: 0 0 0 3px rgba(255,107,0,0.12);
+  background: var(--white);
+}
+
+.form-group textarea { min-height: 100px; resize: vertical; }
+
+.form-submit-row { display: flex; align-items: center; gap: 20px; margin-top: 8px; flex-wrap: wrap; }
+
+.btn-enquire {
+  background: linear-gradient(135deg, var(--saffron), var(--saffron-dk));
+  color: var(--white); padding: 14px 40px;
+  border: none; border-radius: 5px;
+  font-size: 1.05rem; font-weight: 700; cursor: pointer;
+  font-family: 'Crimson Pro', serif; letter-spacing: 0.5px;
+  box-shadow: 0 4px 18px rgba(255,107,0,0.35);
+  transition: all 0.3s;
+}
+.btn-enquire:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(255,107,0,0.45); }
+.btn-enquire:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+.form-note { font-size: 0.82rem; color: var(--text-muted); font-style: italic; }
+
+#form-status {
+  margin-top: 14px; padding: 12px 16px;
+  border-radius: 5px; font-size: 0.95rem;
+  display: none;
+}
+#form-status.success { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+#form-status.error   { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+
+/* ══════════════════════════════
+   ABOUT
+══════════════════════════════ */
+#about { background: var(--cream-dk); }
+
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 60px; align-items: center;
+  max-width: 1100px; margin: 0 auto;
+}
+
+.about-img-wrap { position: relative; }
+.about-img-wrap img {
+  width: 100%; border-radius: 8px;
+  box-shadow: var(--shadow);
+  filter: saturate(1.1);
+}
+.about-img-badge {
+  position: absolute; bottom: -20px; right: -20px;
+  background: linear-gradient(135deg, var(--saffron), var(--saffron-dk));
+  color: var(--white); padding: 20px 24px;
+  border-radius: 8px; text-align: center;
+  box-shadow: 0 8px 24px rgba(255,107,0,0.35);
+}
+.about-img-badge .num {
+  font-family: 'Yatra One', cursive;
+  font-size: 2.4rem; line-height: 1;
+}
+.about-img-badge .lbl { font-size: 0.8rem; opacity: 0.9; }
+
+.about-text .section-header { text-align: left; }
+.about-text .section-divider { margin-left: 0; }
+
+.about-text p {
+  font-size: 1.05rem; color: var(--text-muted);
+  line-height: 1.8; margin-bottom: 16px;
+}
+
+.about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
+.stat-item { text-align: center; padding: 16px; background: var(--white); border-radius: 6px; box-shadow: 0 2px 12px rgba(74,44,10,0.08); }
+.stat-val { font-family: 'Yatra One', cursive; font-size: 1.7rem; color: var(--saffron); }
+.stat-lbl { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* ══════════════════════════════
+   CONTACT
+══════════════════════════════ */
+#contact { background: var(--cream); }
+
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 48px; max-width: 1000px; margin: 0 auto;
+}
+
+.contact-info h3 {
+  font-family: 'Yatra One', cursive;
+  font-size: 1.6rem; color: var(--brown); margin-bottom: 20px;
+}
+
+.contact-item {
+  display: flex; gap: 14px; margin-bottom: 20px; align-items: flex-start;
+}
+.contact-icon {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--saffron), var(--saffron-dk));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0;
+}
+.contact-detail strong { display: block; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); margin-bottom: 2px; }
+.contact-detail a, .contact-detail span { color: var(--brown); font-size: 1rem; text-decoration: none; }
+.contact-detail a:hover { color: var(--saffron); }
+
+.social-links { display: flex; gap: 12px; margin-top: 28px; }
+.social-btn {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--cream-dk); border: 1.5px solid var(--cream-dk);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; text-decoration: none;
+  transition: all 0.3s; cursor: pointer;
+}
+.social-btn:hover { background: var(--saffron); border-color: var(--saffron); transform: translateY(-2px); }
+
+.map-placeholder {
+  background: var(--cream-dk);
+  border-radius: 8px; height: 280px;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 10px;
+  border: 2px dashed rgba(212,160,23,0.4);
+  color: var(--text-muted); font-style: italic;
+}
+.map-placeholder span { font-size: 2.5rem; }
+
+/* ══════════════════════════════
+   PAYMENT MODAL
+══════════════════════════════ */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; z-index: 2000;
+  background: rgba(42,15,3,0.75); backdrop-filter: blur(6px);
+  align-items: center; justify-content: center; padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: var(--white); border-radius: 12px;
+  max-width: 500px; width: 100%;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.3);
+  overflow: hidden;
+  animation: modalIn 0.35s ease;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.92) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-header {
+  background: linear-gradient(135deg, var(--saffron-dk), var(--maroon));
+  padding: 24px 28px; display: flex; justify-content: space-between; align-items: center;
+}
+.modal-header h3 { font-family: 'Yatra One', cursive; font-size: 1.4rem; color: var(--white); }
+.modal-close { background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; opacity: 0.8; transition: opacity 0.2s; }
+.modal-close:hover { opacity: 1; }
+
+.modal-body { padding: 28px; }
+
+.modal-pkg-summary {
+  background: var(--cream);
+  border-radius: 6px; padding: 16px;
+  margin-bottom: 24px;
+  border-left: 4px solid var(--saffron);
+}
+.modal-pkg-summary h4 { font-family: 'Yatra One', cursive; color: var(--brown); font-size: 1.15rem; }
+.modal-pkg-summary .modal-price { font-size: 1.5rem; color: var(--saffron-dk); font-weight: 700; margin-top: 4px; }
+.modal-pkg-summary small { color: var(--text-muted); font-size: 0.85rem; }
+
+.modal-form-group { margin-bottom: 16px; }
+.modal-form-group label { display: block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.5px; color: var(--brown); text-transform: uppercase; margin-bottom: 5px; }
+.modal-form-group input {
+  width: 100%; padding: 10px 13px;
+  border: 1.5px solid var(--cream-dk); border-radius: 5px;
+  font-family: 'Crimson Pro', serif; font-size: 1rem;
+  background: var(--cream); color: var(--text);
+  transition: border-color 0.25s; outline: none;
+}
+.modal-form-group input:focus { border-color: var(--saffron); box-shadow: 0 0 0 3px rgba(255,107,0,0.1); }
+
+.btn-pay {
+  width: 100%; padding: 15px;
+  background: linear-gradient(135deg, var(--saffron), var(--saffron-dk));
+  color: var(--white); border: none; border-radius: 6px;
+  font-size: 1.1rem; font-weight: 700; cursor: pointer;
+  font-family: 'Crimson Pro', serif; letter-spacing: 0.5px;
+  box-shadow: 0 4px 20px rgba(255,107,0,0.35);
+  transition: all 0.3s; margin-top: 8px;
+}
+.btn-pay:hover { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(255,107,0,0.45); }
+.btn-pay:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+.razorpay-note {
+  text-align: center; font-size: 0.8rem; color: var(--text-muted);
+  margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+
+/* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+footer {
+  background: var(--brown);
+  padding: 48px 5% 28px;
+  color: rgba(255,255,255,0.75);
+}
+
+.footer-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px; max-width: 1140px; margin: 0 auto 36px;
+}
+
+.footer-brand .nav-logo { color: var(--gold-lt); font-size: 1.5rem; }
+.footer-brand p { font-size: 0.9rem; line-height: 1.7; margin-top: 12px; color: rgba(255,255,255,0.6); }
+
+.footer-col h4 { font-family: 'Yatra One', cursive; color: var(--gold-lt); margin-bottom: 14px; font-size: 1rem; }
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 8px; }
+.footer-col ul a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+.footer-col ul a:hover { color: var(--gold-lt); }
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 24px; text-align: center;
+  font-size: 0.85rem; color: rgba(255,255,255,0.4);
+}
+.footer-bottom span { color: var(--saffron); }
+
+/* ══════════════════════════════
+   SCROLL TO TOP
+══════════════════════════════ */
+#scrollTop {
+  position: fixed; bottom: 28px; right: 28px; z-index: 900;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--saffron), var(--saffron-dk));
+  color: var(--white); border: none; cursor: pointer;
+  font-size: 1.2rem; display: none;
+  align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(255,107,0,0.4);
+  transition: transform 0.3s;
+}
+#scrollTop:hover { transform: translateY(-3px); }
+#scrollTop.visible { display: flex; }
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column;
+    position: absolute; top: 64px; left: 0; right: 0;
+    background: var(--cream); padding: 20px;
+    border-bottom: 2px solid var(--gold);
+    gap: 16px;
+  }
+  .hamburger { display: flex; }
+  .about-grid, .contact-grid { grid-template-columns: 1fr; }
+  .about-img-badge { bottom: 10px; right: 10px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-item.tall, .gallery-item.wide { grid-column: auto; grid-row: auto; }
+  .form-grid { grid-template-columns: 1fr; }
+  .enquiry-form { padding: 24px; }
+  .enquiry-header { padding: 24px; }
+}
+
+@media (max-width: 560px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; }
+  .hero-title { font-size: 2.2rem; }
+}
+
+/* ══════════════════════════════
+   ANIMATIONS (scroll reveal)
+══════════════════════════════ */
+.reveal {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+</style>
+</head>
+<body class="pattern-bg">
+
+<!-- ══════════════════════════════
+     NAVBAR
+══════════════════════════════ -->
+<nav id="navbar">
+  <a href="#home" class="nav-logo">🪔 Kashi<span>Darshann</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#packages">Packages</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#enquiry" class="nav-cta">Book Now</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════
+     HERO
+══════════════════════════════ -->
+<section id="home">
+  <div class="hero-content">
+    <div class="hero-om">ॐ</div>
+    <div class="hero-tagline">Discover The Divine</div>
+    <h1 class="hero-title">Sacred Journeys to<br/><span>Kashi, Prayag & Ayodhya</span></h1>
+    <p class="hero-subtitle">Experience moksha, spirituality & eternal devotion on handcrafted pilgrimages</p>
+    <div class="hero-cities">
+      <span class="city-badge">🕌 Varanasi</span>
+      <span class="city-badge">🌊 Prayagraj</span>
+      <span class="city-badge">🛕 Ayodhya</span>
+    </div>
+    <div class="hero-btns">
+      <a href="#packages" class="btn-primary">Explore Packages</a>
+      <a href="#enquiry" class="btn-secondary">Plan My Yatra</a>
+    </div>
+  </div>
+  <div class="hero-diya"></div>
+</section>
+
+<!-- ══════════════════════════════
+     CITIES
+══════════════════════════════ -->
+<section id="cities" style="padding:0;">
+  <div class="cities-grid">
+    <div class="city-card">
+      <img src="https://images.unsplash.com/photo-1561361058-c24e021e5f78?w=600&q=80" alt="Varanasi Ghats"/>
+      <div class="city-card-overlay">
+        <div class="city-card-icon">🕌</div>
+        <div class="city-card-name">Varanasi</div>
+        <div class="city-card-desc">City of Light · Ganga Aarti · Kashi Vishwanath</div>
+      </div>
+    </div>
+    <div class="city-card">
+      <img src="https://images.unsplash.com/photo-1614082242765-7c98ca0f3df3?w=600&q=80" alt="Prayagraj Sangam"/>
+      <div class="city-card-overlay">
+        <div class="city-card-icon">🌊</div>
+        <div class="city-card-name">Prayagraj</div>
+        <div class="city-card-desc">Triveni Sangam · Kumbh Mela · Anand Bhavan</div>
+      </div>
+    </div>
+    <div class="city-card">
+      <img src="https://images.unsplash.com/photo-1704694210194-eeab83c55c75?w=600&q=80" alt="Ayodhya Ram Mandir"/>
+      <div class="city-card-overlay">
+        <div class="city-card-icon">🛕</div>
+        <div class="city-card-name">Ayodhya</div>
+        <div class="city-card-desc">Ram Janmabhoomi · Ram Mandir · Saryu Aarti</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     PACKAGES
+══════════════════════════════ -->
+<section id="packages">
+  <div class="section-header reveal">
+    <span class="section-label">✦ Curated Pilgrimages ✦</span>
+    <h2 class="section-title">Our Sacred <span>Tour Packages</span></h2>
+    <div class="section-divider"></div>
+    <p class="section-desc">Handcrafted yatra experiences with expert guides, comfortable stays & spiritual immersion</p>
+  </div>
+
+  <div class="packages-grid">
+
+    <!-- Package 1 -->
+    <div class="pkg-card reveal reveal-delay-1" data-pkg-name="Kashi Darshan — 3N/4D" data-pkg-price="8999" data-pkg-city="Varanasi">
+      <span class="pkg-badge">Bestseller</span>
+      <img class="pkg-img" src="https://images.unsplash.com/photo-1561361058-c24e021e5f78?w=600&q=80" alt="Varanasi"/>
+      <div class="pkg-body">
+        <div class="pkg-city">Varanasi</div>
+        <h3 class="pkg-title">Kashi Darshan</h3>
+        <p class="pkg-desc">Immerse yourself in the eternal city — Ganga Aarti at Dashashwamedh, Kashi Vishwanath darshan, boat ride at sunrise.</p>
+        <ul class="pkg-features">
+          <li>3 Nights / 4 Days</li>
+          <li>Ganga Aarti at Dashashwamedh Ghat</li>
+          <li>Kashi Vishwanath VIP Darshan</li>
+          <li>Sunrise Boat Ride on Ganga</li>
+          <li>AC Hotel + Meals Included</li>
+        </ul>
+        <div class="pkg-footer">
+          <div class="pkg-price">
+            <div class="pkg-price-val">₹8,999</div>
+            <div class="pkg-price-label">per person</div>
+          </div>
+          <button class="btn-book" onclick="openPayModal(this)">Book Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Package 2 -->
+    <div class="pkg-card reveal reveal-delay-2" data-pkg-name="Triveni Sangam Yatra — 2N/3D" data-pkg-price="6499" data-pkg-city="Prayagraj">
+      <img class="pkg-img" src="https://images.unsplash.com/photo-1614082242765-7c98ca0f3df3?w=600&q=80" alt="Prayagraj"/>
+      <div class="pkg-body">
+        <div class="pkg-city">Prayagraj</div>
+        <h3 class="pkg-title">Triveni Sangam Yatra</h3>
+        <p class="pkg-desc">Take a holy dip at the sacred confluence of Ganga, Yamuna & Saraswati. Visit Anand Bhavan & Allahabad Fort.</p>
+        <ul class="pkg-features">
+          <li>2 Nights / 3 Days</li>
+          <li>Sacred Sangam Snan (Holy Dip)</li>
+          <li>Akshayavat & Patalpuri Temple</li>
+          <li>Anand Bhavan Heritage Tour</li>
+          <li>AC Hotel + Breakfast</li>
+        </ul>
+        <div class="pkg-footer">
+          <div class="pkg-price">
+            <div class="pkg-price-val">₹6,499</div>
+            <div class="pkg-price-label">per person</div>
+          </div>
+          <button class="btn-book" onclick="openPayModal(this)">Book Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Package 3 -->
+    <div class="pkg-card reveal reveal-delay-3" data-pkg-name="Ram Janmabhoomi Darshan — 2N/3D" data-pkg-price="7499" data-pkg-city="Ayodhya">
+      <span class="pkg-badge" style="background:var(--gold);color:var(--brown);">New</span>
+      <img class="pkg-img" src="https://images.unsplash.com/photo-1704694210194-eeab83c55c75?w=600&q=80" alt="Ayodhya"/>
+      <div class="pkg-body">
+        <div class="pkg-city">Ayodhya</div>
+        <h3 class="pkg-title">Ram Janmabhoomi Darshan</h3>
+        <p class="pkg-desc">Visit the newly consecrated Ram Mandir, Hanuman Garhi, Kanak Bhawan & witness the divine Saryu Aarti.</p>
+        <ul class="pkg-features">
+          <li>2 Nights / 3 Days</li>
+          <li>Ram Mandir VIP Darshan</li>
+          <li>Hanuman Garhi & Kanak Bhawan</li>
+          <li>Saryu River Aarti</li>
+          <li>AC Hotel + All Meals</li>
+        </ul>
+        <div class="pkg-footer">
+          <div class="pkg-price">
+            <div class="pkg-price-val">₹7,499</div>
+            <div class="pkg-price-label">per person</div>
+          </div>
+          <button class="btn-book" onclick="openPayModal(this)">Book Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Package 4 -->
+    <div class="pkg-card reveal reveal-delay-1" data-pkg-name="Char Dham Yatra Express — 7N/8D" data-pkg-price="22999" data-pkg-city="Varanasi · Prayagraj · Ayodhya">
+      <span class="pkg-badge" style="background:var(--maroon);">Premium</span>
+      <img class="pkg-img" src="https://images.unsplash.com/photo-1627894483216-2138af692e32?w=600&q=80" alt="Combined Tour"/>
+      <div class="pkg-body">
+        <div class="pkg-city">Varanasi · Prayagraj · Ayodhya</div>
+        <h3 class="pkg-title">Tri-City Divine Yatra</h3>
+        <p class="pkg-desc">The complete pilgrim's journey — all three sacred cities in one seamlessly curated 8-day experience.</p>
+        <ul class="pkg-features">
+          <li>7 Nights / 8 Days</li>
+          <li>All Three Sacred Cities</li>
+          <li>Premium AC Transport</li>
+          <li>Expert Spiritual Guide</li>
+          <li>Luxury Hotels + All Meals</li>
+        </ul>
+        <div class="pkg-footer">
+          <div class="pkg-price">
+            <div class="pkg-price-val">₹22,999</div>
+            <div class="pkg-price-label">per person</div>
+          </div>
+          <button class="btn-book" onclick="openPayModal(this)">Book Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Package 5 -->
+    <div class="pkg-card reveal reveal-delay-2" data-pkg-name="Ganga Aarti & Spirituality — 1N/2D" data-pkg-price="3999" data-pkg-city="Varanasi">
+      <img class="pkg-img" src="https://images.unsplash.com/photo-1613766947476-83b83b8b4a4a?w=600&q=80" alt="Ganga Aarti"/>
+      <div class="pkg-body">
+        <div class="pkg-city">Varanasi</div>
+        <h3 class="pkg-title">Ganga Aarti Weekend</h3>
+        <p class="pkg-desc">A short weekend spiritual escape. Evening Ganga Aarti, morning boat ride, Sarnath excursion.</p>
+        <ul class="pkg-features">
+          <li>1 Night / 2 Days</li>
+          <li>Dashashwamedh Ghat Aarti</li>
+          <li>Sarnath Buddhist Tour</li>
+          <li>Sunrise Ganga Boat Ride</li>
+          <li>Hotel + Breakfast</li>
+        </ul>
+        <div class="pkg-footer">
+          <div class="pkg-price">
+            <div class="pkg-price-val">₹3,999</div>
+            <div class="pkg-price-label">per person</div>
+          </div>
+          <button class="btn-book" onclick="openPayModal(this)">Book Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Package 6 -->
+    <div class="pkg-card reveal reveal-delay-3" data-pkg-name="Kumbh Mela Special — 4N/5D" data-pkg-price="14999" data-pkg-city="Prayagraj">
+      <span class="pkg-badge" style="background:#7C3AED;">Special</span>
+      <img class="pkg-img" src="https://images.unsplash.com/photo-1627307337428-fd5cc7b5a7e7?w=600&q=80" alt="Kumbh"/>
+      <div class="pkg-body">
+        <div class="pkg-city">Prayagraj</div>
+        <h3 class="pkg-title">Kumbh Mela Special</h3>
+        <p class="pkg-desc">Witness the world's largest gathering of faith. Sacred Amrit Snan, Sadhu darshan, cultural programs.</p>
+        <ul class="pkg-features">
+          <li>4 Nights / 5 Days</li>
+          <li>Amrit Snan on Shahi Dates</li>
+          <li>Tent City Accommodation</li>
+          <li>Sadhu & Akhara Darshan</li>
+          <li>All Meals + Local Transport</li>
+        </ul>
+        <div class="pkg-footer">
+          <div class="pkg-price">
+            <div class="pkg-price-val">₹14,999</div>
+            <div class="pkg-price-label">per person</div>
+          </div>
+          <button class="btn-book" onclick="openPayModal(this)">Book Now</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     GALLERY
+══════════════════════════════ -->
+<section id="gallery">
+  <div class="section-header reveal">
+    <span class="section-label">✦ Sacred Moments ✦</span>
+    <h2 class="section-title">Captured <span>Divinity</span></h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="gallery-grid reveal">
+    <div class="gallery-item tall">
+      <img src="https://images.unsplash.com/photo-1561361058-c24e021e5f78?w=500&q=80" alt="Varanasi Ghats"/>
+      <div class="gallery-item-overlay"><span>🔍</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1627307337428-fd5cc7b5a7e7?w=500&q=80" alt="Ganga Aarti"/>
+      <div class="gallery-item-overlay"><span>🔍</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1704694210194-eeab83c55c75?w=500&q=80" alt="Ram Mandir"/>
+      <div class="gallery-item-overlay"><span>🔍</span></div>
+    </div>
+    <div class="gallery-item wide">
+      <img src="https://images.unsplash.com/photo-1614082242765-7c98ca0f3df3?w=800&q=80" alt="Sangam"/>
+      <div class="gallery-item-overlay"><span>🔍</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1613766947476-83b83b8b4a4a?w=500&q=80" alt="Aarti"/>
+      <div class="gallery-item-overlay"><span>🔍</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1627894483216-2138af692e32?w=500&q=80" alt="Temple"/>
+      <div class="gallery-item-overlay"><span>🔍</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1590077428593-a55bb07c4665?w=500&q=80" alt="Boat Ride"/>
+      <div class="gallery-item-overlay"><span>🔍</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     TESTIMONIALS
+══════════════════════════════ -->
+<section id="testimonials">
+  <div class="section-header reveal">
+    <span class="section-label" style="color:var(--gold-lt)">✦ Pilgrim Stories ✦</span>
+    <h2 class="section-title" style="color:var(--white)">What Our <span style="color:var(--gold-lt)">Yatris Say</span></h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card reveal reveal-delay-1">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">The Ganga Aarti experience was transcendental. KashiDarshann arranged everything perfectly — from hotel to VIP darshan. Truly life-changing.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">R</div>
+        <div>
+          <div class="testi-name">Rajesh Sharma</div>
+          <div class="testi-loc">Delhi, India</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal reveal-delay-2">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">Went for the Tri-City Yatra with family. The guide was incredibly knowledgeable about Hindu scriptures and every ritual. Highly recommended!</p>
+      <div class="testi-author">
+        <div class="testi-avatar">P</div>
+        <div>
+          <div class="testi-name">Priya Mehta</div>
+          <div class="testi-loc">Mumbai, India</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal reveal-delay-3">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">Ram Mandir darshan was a dream come true. The team handled VIP pass, accommodation and transport seamlessly. Pure divine experience.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">A</div>
+        <div>
+          <div class="testi-name">Anita Gupta</div>
+          <div class="testi-loc">Lucknow, India</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal reveal-delay-4">
+      <div class="testi-stars">★★★★☆</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">Kumbh Mela was an overwhelming, beautiful chaos. The tent camp was comfortable and the spiritual guide made everything meaningful and safe.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">S</div>
+        <div>
+          <div class="testi-name">Suresh Patel</div>
+          <div class="testi-loc">Ahmedabad, India</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     ENQUIRY FORM
+══════════════════════════════ -->
+<section id="enquiry">
+  <div class="section-header reveal">
+    <span class="section-label">✦ Begin Your Journey ✦</span>
+    <h2 class="section-title">Plan Your <span>Sacred Yatra</span></h2>
+    <div class="section-divider"></div>
+    <p class="section-desc">Fill in your details and our yatra specialist will contact you within 24 hours</p>
+  </div>
+
+  <div class="enquiry-wrapper reveal">
+    <div class="enquiry-header">
+      <h3>🪔 Yatra Enquiry Form</h3>
+      <p>All fields marked * are required. We'll call you back to confirm your booking.</p>
+    </div>
+    <form class="enquiry-form" id="enquiryForm" onsubmit="submitEnquiry(event)">
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>Full Name *</label>
+          <input type="text" id="eq-name" placeholder="Your full name" required/>
+        </div>
+
+        <div class="form-group">
+          <label>Phone Number *</label>
+          <input type="tel" id="eq-phone" placeholder="+91 XXXXX XXXXX" required/>
+        </div>
+
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input type="email" id="eq-email" placeholder="you@email.com" required/>
+        </div>
+
+        <div class="form-group">
+          <label>City You're From</label>
+          <input type="text" id="eq-city" placeholder="e.g. Delhi, Mumbai"/>
+        </div>
+
+        <div class="form-group">
+          <label>Interested Destination *</label>
+          <select id="eq-dest" required>
+            <option value="">Select destination</option>
+            <option>Varanasi</option>
+            <option>Prayagraj</option>
+            <option>Ayodhya</option>
+            <option>Tri-City (All Three)</option>
+            <option>Kumbh Mela Special</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Preferred Travel Date</label>
+          <input type="date" id="eq-date"/>
+        </div>
+
+        <div class="form-group">
+          <label>Number of Travellers</label>
+          <select id="eq-travellers">
+            <option>1 Person</option>
+            <option>2 Persons</option>
+            <option>3–5 Persons</option>
+            <option>6–10 Persons (Group)</option>
+            <option>10+ Persons (Large Group)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Budget Range</label>
+          <select id="eq-budget">
+            <option>Under ₹5,000</option>
+            <option>₹5,000 – ₹10,000</option>
+            <option>₹10,000 – ₹20,000</option>
+            <option>₹20,000+</option>
+          </select>
+        </div>
+
+        <div class="form-group form-full">
+          <label>Special Requests / Message</label>
+          <textarea id="eq-message" placeholder="Any specific rituals, accessibility needs, dietary requirements, or questions..."></textarea>
+        </div>
+
+      </div>
+
+      <div class="form-submit-row">
+        <button type="submit" class="btn-enquire" id="enquireBtn">🙏 Send Enquiry</button>
+        <span class="form-note">We respond within 24 hours. No spam, ever.</span>
+      </div>
+
+      <div id="form-status"></div>
+    </form>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     ABOUT
+══════════════════════════════ -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-img-wrap reveal">
+      <img src="https://images.unsplash.com/photo-1561361058-c24e021e5f78?w=700&q=80" alt="About KashiDarshann"/>
+      <div class="about-img-badge">
+        <div class="num">12+</div>
+        <div class="lbl">Years of<br/>Devotion</div>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <div class="section-header" style="text-align:left">
+        <span class="section-label">✦ Our Story ✦</span>
+        <h2 class="section-title">About <span>KashiDarshann</span></h2>
+        <div class="section-divider" style="margin-left:0"></div>
+      </div>
+      <p>Founded in Varanasi with deep roots in the ancient spiritual traditions of Uttar Pradesh, KashiDarshann has been guiding pilgrims to their divine destinations for over a decade.</p>
+      <p>We believe every yatra is not just a trip — it is a transformation. Our team of experienced guides, priests and travel experts craft journeys that touch the soul.</p>
+      <p>From VIP darshan arrangements to comfortable stays and seamless transport, we handle every detail so you can focus on what matters — your spiritual journey.</p>
+      <div class="about-stats">
+        <div class="stat-item">
+          <div class="stat-val">15,000+</div>
+          <div class="stat-lbl">Happy Yatris</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val">50+</div>
+          <div class="stat-lbl">Tour Packages</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-val">4.9★</div>
+          <div class="stat-lbl">Avg Rating</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     CONTACT
+══════════════════════════════ -->
+<section id="contact" style="background:var(--cream-dk)">
+  <div class="section-header reveal">
+    <span class="section-label">✦ Reach Us ✦</span>
+    <h2 class="section-title">Get In <span>Touch</span></h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <h3>We're Here to Guide You</h3>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div class="contact-detail">
+          <strong>Office Address</strong>
+          <span>Dashashwamedh Ghat Road, Varanasi, UP – 221001</span>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div class="contact-detail">
+          <strong>Phone / WhatsApp</strong>
+          <a href="tel:+919999999999">+91 99999 99999</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <div class="contact-detail">
+          <strong>Email</strong>
+          <a href="mailto:namaste@kashidarshann.com">namaste@kashidarshann.com</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🕐</div>
+        <div class="contact-detail">
+          <strong>Working Hours</strong>
+          <span>Mon–Sat: 9:00 AM – 7:00 PM</span>
+        </div>
+      </div>
+      <div class="social-links">
+        <a class="social-btn" href="#" title="WhatsApp">💬</a>
+        <a class="social-btn" href="#" title="Instagram">📸</a>
+        <a class="social-btn" href="#" title="Facebook">👍</a>
+        <a class="social-btn" href="#" title="YouTube">▶️</a>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="map-placeholder">
+        <span>🗺️</span>
+        <strong>Varanasi, Uttar Pradesh</strong>
+        <p style="font-size:0.85rem;text-align:center;max-width:220px">Replace this with a Google Maps embed using your address</p>
+        <!-- EMBED YOUR GOOGLE MAP HERE:
+        <iframe src="https://www.google.com/maps/embed?pb=..." width="100%" height="280" style="border:0;border-radius:8px" loading="lazy"></iframe>
+        -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     FOOTER
+══════════════════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">🪔 Kashi<span style="color:var(--gold-lt)">Darshann</span></div>
+      <p>Your trusted companion on the path of devotion. Crafting sacred journeys to Varanasi, Prayagraj and Ayodhya since 2012.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#packages">Tour Packages</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#enquiry">Book Now</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Destinations</h4>
+      <ul>
+        <li><a href="#">Varanasi</a></li>
+        <li><a href="#">Prayagraj</a></li>
+        <li><a href="#">Ayodhya</a></li>
+        <li><a href="#">Mathura & Vrindavan</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Refund Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 KashiDarshann. Made with <span>🙏</span> in Varanasi. All rights reserved.</p>
+    <p style="margin-top:6px;font-size:0.75rem;">Payments secured by <span>Razorpay</span> · Data stored on <span>Firebase</span></p>
+  </div>
+</footer>
+
+<!-- SCROLL TOP -->
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- ══════════════════════════════
+     PAYMENT MODAL
+══════════════════════════════ -->
+<div class="modal-overlay" id="payModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>🪔 Confirm Booking</h3>
+      <button class="modal-close" onclick="closePayModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-pkg-summary">
+        <h4 id="modal-pkg-name">Package Name</h4>
+        <div class="modal-price" id="modal-pkg-price">₹0</div>
+        <small id="modal-pkg-city">Destination</small>
+      </div>
+
+      <div class="modal-form-group">
+        <label>Full Name *</label>
+        <input type="text" id="pay-name" placeholder="As per ID proof" required/>
+      </div>
+      <div class="modal-form-group">
+        <label>Email *</label>
+        <input type="email" id="pay-email" placeholder="For booking confirmation" required/>
+      </div>
+      <div class="modal-form-group">
+        <label>Phone *</label>
+        <input type="tel" id="pay-phone" placeholder="+91 XXXXX XXXXX" required/>
+      </div>
+
+      <button class="btn-pay" id="payBtn" onclick="initiatePayment()">
+        🔐 Pay Securely with Razorpay
+      </button>
+      <div class="razorpay-note">
+        🔒 256-bit SSL Encrypted · Secured by Razorpay
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     JAVASCRIPT
+══════════════════════════════ -->
+<script>
+
+// ═══════════════════════════════════════════════════════
+// 💳 RAZORPAY CONFIG — REPLACE WITH YOUR KEY
+// Get from: Razorpay Dashboard → Settings → API Keys
+// ═══════════════════════════════════════════════════════
+const RAZORPAY_KEY_ID = "YOUR_RAZORPAY_KEY_ID";  // e.g. "rzp_live_XXXXXXXXXX"
+
+// ═══════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// ═══════════════════════════════════════════════════════
+// SCROLL EFFECTS
+// ═══════════════════════════════════════════════════════
+const scrollTopBtn = document.getElementById('scrollTop');
+
+window.addEventListener('scroll', () => {
+  // Show/hide scroll top button
+  if (window.scrollY > 400) scrollTopBtn.classList.add('visible');
+  else scrollTopBtn.classList.remove('visible');
+
+  // Reveal animations
+  document.querySelectorAll('.reveal').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 80) el.classList.add('visible');
+  });
+});
+
+// Initial check
+document.querySelectorAll('.reveal').forEach(el => {
+  const rect = el.getBoundingClientRect();
+  if (rect.top < window.innerHeight - 80) el.classList.add('visible');
+});
+
+// ═══════════════════════════════════════════════════════
+// PAYMENT MODAL
+// ═══════════════════════════════════════════════════════
+let currentPkg = {};
+
+function openPayModal(btn) {
+  const card = btn.closest('.pkg-card');
+  currentPkg = {
+    name:  card.dataset.pkgName,
+    price: parseInt(card.dataset.pkgPrice),
+    city:  card.dataset.pkgCity
+  };
+  document.getElementById('modal-pkg-name').textContent  = currentPkg.name;
+  document.getElementById('modal-pkg-price').textContent = '₹' + currentPkg.price.toLocaleString('en-IN');
+  document.getElementById('modal-pkg-city').textContent  = '📍 ' + currentPkg.city;
+  document.getElementById('payModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePayModal() {
+  document.getElementById('payModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Close modal on overlay click
+document.getElementById('payModal').addEventListener('click', function(e) {
+  if (e.target === this) closePayModal();
+});
+
+// ═══════════════════════════════════════════════════════
+// 💳 RAZORPAY PAYMENT INITIATION
+// ═══════════════════════════════════════════════════════
+function initiatePayment() {
+  const name  = document.getElementById('pay-name').value.trim();
+  const email = document.getElementById('pay-email').value.trim();
+  const phone = document.getElementById('pay-phone').value.trim();
+
+  if (!name || !email || !phone) {
+    alert('Please fill in all fields to proceed with payment.');
+    return;
+  }
+
+  // ── NOTE: In production, create the Razorpay order from your backend server
+  //         and pass the order_id here. Never create orders from frontend.
+  //         Backend endpoint: POST /api/create-razorpay-order
+  //         Returns: { id: "order_XXXXXXXX", amount: XXXX, currency: "INR" }
+
+  const options = {
+    key:         RAZORPAY_KEY_ID,
+    amount:      currentPkg.price * 100,   // Amount in paise (₹1 = 100 paise)
+    currency:    "INR",
+    name:        "KashiDarshann",
+    description: currentPkg.name,
+    image:       "",  // Optional: your logo URL
+    // order_id: "order_XXXXXXXX",  // ← Add this when using backend-created orders
+
+    prefill: {
+      name:    name,
+      email:   email,
+      contact: phone
+    },
+
+    notes: {
+      package:     currentPkg.name,
+      destination: currentPkg.city
+    },
+
+    theme: {
+      color: "#FF6B00"  // Saffron brand color
+    },
+
+    // ── SUCCESS HANDLER ──
+    handler: function(response) {
+      console.log("✅ Payment Success:", response);
+      // response.razorpay_payment_id  — Save this to Firebase
+      // response.razorpay_order_id    — For order tracking
+      // response.razorpay_signature   — For server-side verification
+
+      saveBookingToFirebase({
+        name, email, phone,
+        package:    currentPkg.name,
+        city:       currentPkg.city,
+        amount:     currentPkg.price,
+        paymentId:  response.razorpay_payment_id,
+        orderId:    response.razorpay_order_id || '',
+        status:     'paid',
+        paidAt:     new Date().toISOString()
+      });
+
+      closePayModal();
+      showPaymentSuccess(name, response.razorpay_payment_id);
+    },
+
+    modal: {
+      ondismiss: function() {
+        console.log("Payment modal closed by user");
+      }
+    }
+  };
+
+  const rzp = new Razorpay(options);
+
+  // ── PAYMENT FAILURE HANDLER ──
+  rzp.on('payment.failed', function(response) {
+    console.error("❌ Payment Failed:", response.error);
+    alert("Payment failed: " + response.error.description + "\nPlease try again or contact support.");
+  });
+
+  rzp.open();
+}
+
+function showPaymentSuccess(name, paymentId) {
+  const div = document.createElement('div');
+  div.style.cssText = `
+    position:fixed;inset:0;z-index:3000;
+    background:rgba(0,0,0,0.7);
+    display:flex;align-items:center;justify-content:center;
+    animation:fadeIn 0.3s ease;
+  `;
+  div.innerHTML = `
+    <div style="background:#fff;border-radius:12px;padding:40px;max-width:420px;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,0.3)">
+      <div style="font-size:3rem;margin-bottom:12px">🎉</div>
+      <h2 style="font-family:'Yatra One',cursive;color:#C94E00;font-size:1.8rem;margin-bottom:8px">Jai Shri Ram! 🙏</h2>
+      <p style="color:#4A2C0A;font-size:1.05rem;margin-bottom:8px">Booking confirmed, <strong>${name}</strong>!</p>
+      <p style="color:#7B4F1E;font-size:0.9rem;margin-bottom:16px">Payment ID: <code style="background:#FDF6E3;padding:3px 8px;border-radius:4px;font-size:0.8rem">${paymentId}</code></p>
+      <p style="color:#6B4C2A;font-size:0.88rem;margin-bottom:24px">Our team will contact you within 24 hours with your detailed itinerary. Check your email for confirmation.</p>
+      <button onclick="this.closest('div[style]').remove()" style="background:linear-gradient(135deg,#FF6B00,#C94E00);color:#fff;padding:12px 32px;border:none;border-radius:5px;font-size:1rem;cursor:pointer;font-family:'Crimson Pro',serif;font-weight:700">
+        Continue Browsing
+      </button>
+    </div>
+  `;
+  document.body.appendChild(div);
+}
+
+// ═══════════════════════════════════════════════════════
+// 🔥 FIREBASE — SAVE BOOKING TO FIRESTORE
+// Collection: "bookings"
+// ═══════════════════════════════════════════════════════
+async function saveBookingToFirebase(data) {
+  if (!window._firebaseReady) {
+    console.warn("Firebase not ready — check your config keys");
+    return;
+  }
+  try {
+    const docRef = await window._firestoreAdd(
+      window._firestoreCollection(window._firebaseDB, "bookings"),
+      {
+        ...data,
+        createdAt: window._firestoreTimestamp()
+      }
+    );
+    console.log("✅ Booking saved to Firebase. Doc ID:", docRef.id);
+  } catch (err) {
+    console.error("❌ Firebase save error:", err);
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// 🔥 FIREBASE — SAVE ENQUIRY TO FIRESTORE
+// Collection: "enquiries"
+// ═══════════════════════════════════════════════════════
+async function submitEnquiry(e) {
+  e.preventDefault();
+  const btn    = document.getElementById('enquireBtn');
+  const status = document.getElementById('form-status');
+
+  btn.disabled    = true;
+  btn.textContent = '⏳ Sending...';
+
+  const enquiryData = {
+    name:       document.getElementById('eq-name').value.trim(),
+    phone:      document.getElementById('eq-phone').value.trim(),
+    email:      document.getElementById('eq-email').value.trim(),
+    fromCity:   document.getElementById('eq-city').value.trim(),
+    destination:document.getElementById('eq-dest').value,
+    travelDate: document.getElementById('eq-date').value,
+    travellers: document.getElementById('eq-travellers').value,
+    budget:     document.getElementById('eq-budget').value,
+    message:    document.getElementById('eq-message').value.trim(),
+    submittedAt: new Date().toISOString(),
+    status:     'new'
+  };
+
+  // Wait for Firebase to be ready (it loads asynchronously)
+  const waitForFirebase = () => new Promise((resolve, reject) => {
+    if (window._firebaseReady) return resolve();
+    let tries = 0;
+    const check = setInterval(() => {
+      if (window._firebaseReady) { clearInterval(check); resolve(); }
+      if (++tries > 30) { clearInterval(check); reject(new Error("Firebase timeout")); }
+    }, 300);
+  });
+
+  try {
+    await waitForFirebase();
+
+    const docRef = await window._firestoreAdd(
+      window._firestoreCollection(window._firebaseDB, "enquiries"),
+      {
+        ...enquiryData,
+        createdAt: window._firestoreTimestamp()
+      }
+    );
+
+    console.log("✅ Enquiry saved. Doc ID:", docRef.id);
+
+    status.className  = 'success';
+    status.style.display = 'block';
+    status.textContent = `🙏 Thank you, ${enquiryData.name}! Your enquiry has been received. Our team will call you within 24 hours.`;
+
+    document.getElementById('enquiryForm').reset();
+
+  } catch (err) {
+    console.error("❌ Enquiry submission error:", err);
+
+    // Show user-friendly error (also works if Firebase keys not set yet)
+    status.className  = 'error';
+    status.style.display = 'block';
+    status.textContent = '⚠️ Could not submit enquiry. Please call us directly at +91 99999 99999 or check Firebase config.';
+  }
+
+  btn.disabled    = false;
+  btn.textContent = '🙏 Send Enquiry';
+}
+
+</script>
+
+</body>
+</html>
